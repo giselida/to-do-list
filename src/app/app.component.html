@@ -1,0 +1,98 @@
+<h1>Lista de Tarefas</h1>
+<mat-card>
+  <mat-card-header>
+    <img src="../assets/images/todo-list.jpeg" alt="todo-list" />
+  </mat-card-header>
+  <mat-card-content>
+    <form>
+      <mat-form-field>
+        <mat-label>Digite sua tarefa</mat-label>
+        <input
+          matInput
+          placeholder="Ex. limpar o quarto"
+          [formControl]="taskControl"
+        />
+      </mat-form-field>
+      <div class="buttons-group">
+        <button
+          type="submit"
+          mat-raised-button
+          color="primary"
+          [disabled]="taskControl.invalid"
+          [matTooltip]="editingTask ? 'Atualizar' : 'Adicionar'"
+          (click)="editingTask ? updateTask() : addTask()"
+        >
+          <mat-icon fontIcon="check"></mat-icon>
+          {{ editingTask ? "Atualizar" : "Adicionar" }}
+        </button>
+
+        @if(editingTask){
+        <button
+          mat-raised-button
+          (click)="cancelEditing()"
+          matTooltip="Cancelar"
+        >
+          <mat-icon fontIcon="close"></mat-icon>
+          Cancelar
+        </button>
+        }
+      </div>
+    </form>
+    @if(tasks.length > 0){
+    <mat-checkbox
+      class="check-all"
+      [checked]="allComplete"
+      color="primary"
+      [indeterminate]="someComplete()"
+      (change)="setAllComplete($event.checked)"
+    >
+      Selecionar todos
+    </mat-checkbox>
+    }
+    <mat-list>
+      @for(task of tasks; track task.id;) {
+      <mat-list-item>
+        <div class="tasks">
+          <mat-checkbox
+            [checked]="task.completed"
+            [(ngModel)]="task.completed"
+            (ngModelChange)="updateAllComplete()"
+          >
+            <span [class.line-through]="task.completed">
+              {{ task.id }}-
+              {{ task.name }}
+            </span>
+          </mat-checkbox>
+          <div class="actions">
+            <button
+              mat-icon-button
+              [disabled]="task.completed"
+              matTooltip="Favoritar"
+              (click)="toggleFavorite(task)"
+              [class.favorite]="task.favorite"
+            >
+              <mat-icon fontIcon="favorite"></mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              (click)="removeTask(task.id)"
+              matTooltip="Remover"
+              [disabled]="task.completed"
+            >
+              <mat-icon fontIcon="close"></mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              (click)="editTask(task)"
+              matTooltip="Editar"
+              [disabled]="task.completed"
+            >
+              <mat-icon fontIcon="edit"></mat-icon>
+            </button>
+          </div>
+        </div>
+      </mat-list-item>
+      }
+    </mat-list>
+  </mat-card-content>
+</mat-card>

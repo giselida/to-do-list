@@ -1,0 +1,81 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(
+    110.5deg,
+    rgba(248, 196, 249, 0.66) 22.8%,
+    rgba(253, 122, 4, 0.15) 64.6%
+  );
+  h1 {
+    font-family: "Handlee", cursive;
+  }
+  .line-through {
+    text-decoration: line-through;
+    color: black;
+    font-weight: 700;
+  }
+  .favorite {
+    color: rgb(255, 0, 0);
+  }
+
+  mat-card {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 400px;
+    max-width: 100%;
+
+    img {
+      border-radius: 4px 4px 0 0;
+      width: 400px;
+      height: 200px;
+      position: relative;
+      bottom: 17px;
+    }
+
+    mat-card-content {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .buttons-group {
+          display: flex;
+          gap: 5px;
+        }
+      }
+      mat-list {
+        height: 150px;
+        overflow: auto;
+        mat-list-item {
+          transition: background-color 0.5s ease-in-out;
+          &:hover {
+            background-color: rgb(131, 131, 131);
+          }
+          .tasks {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 100%;
+            padding: 5px;
+            .actions {
+              display: flex;
+              gap: 5px;
+              button {
+                box-shadow: none;
+              }
+            }
+          }
+        }
+      }
+      .check-all {
+        margin-top: 10px;
+      }
+    }
+  }
+}
